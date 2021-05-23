@@ -1,0 +1,367 @@
+#!/bin/bash
+# i3 config file
+# Please see https://i3wm.org/docs/userguide.html for a complete reference!
+
+#++++++=Modifiy Keys=++++++#
+#(Mod1 = Alt, Mod4 = Super)
+set $mod Mod4
+set $m_alt Mod1
+
+
+
+#++++++=Auto Start Programs=++++++#
+exec --no-startup-id xcompmgr 
+exec --no-startup-id compton -b
+exec --no-startup-id mate-power-manager
+exec --no-startup-id nm-applet
+exec --no-startup-id blueman
+exec --no-startup-id blueman-applet
+# exec --no-startup-id nm-coneection-editor
+# exec --no-startup-id redshift
+# exec --no-startup-id ss-qt
+exec --no-startup-id /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &
+exec --no-startup-id emacs --daemon
+
+
+#++++++=Screens=++++++#
+
+exec --no-startup-id bash ~/.config/i3/screen.sh
+
+exec --no-startup-id bash ~/.config/i3/polybar/launch.sh
+
+
+#++++++=Shortcuts=++++++#
+# program launchers
+bindsym $mod+d exec --no-startup-id dmenu_run
+bindsym $m_alt+space exec --no-startup-id rofi -show drun -theme ctheme
+
+# terminals
+bindsym $mod+Return exec --no-startup-id sakura
+bindsym $mod+z exec --no-startup-id sakura
+# bindsym $mod+Return exec --no-startup-id i3-sensible-terminal
+# bindsym $mod+z exec --no-startup-id i3-sensible-terminal
+
+# browsers
+bindsym $mod+c exec --no-startup-id firefox
+bindsym $mod+Shift+c exec --no-startup-id chromium --save-page-as-mhtml
+
+# file explorers
+bindsym $mod+e exec --no-startup-id thunar
+
+# screenshot
+bindsym Print exec --no-startup-id "scrot -u -q 100 './Pictures/Screenshots/%Y%m%d_%H%M%s_$wx$h.png'"
+bindsym --release Shift+Print exec --no-startup-id "scrot -bs -q 100 './Pictures/Screenshots/%Y%m%d_%H%M%s_$wx$h.png'"
+bindsym --release Control+Print exec --no-startup-id "scrot -s -q 100 './Pictures/Screenshots/%Y%m%d_%H%M%s_$wx$h.png'"
+
+# emacs
+bindsym $mod+Shift+e exec --no-startup-id emacsclient -c
+
+# VSC
+bindsym $mod+q exec --no-startup-id code
+
+# XMind
+bindsym $mod+m exec --no-startup-id xmind
+
+# Zotero
+bindsym $mod+Shift+z exec --no-startup-id zotero
+
+#++++++=Appereance=++++++#;
+# default window
+new_window none
+new_float normal
+hide_edge_borders both
+
+# gaps inner 5
+# gaps outer 5
+# smart_gaps on
+
+#%%#
+# set primary gruvbox colorscheme colors
+set $bg #282828
+set $red #cc241d
+set $green #98971a
+set $yellow #d79921
+set $blue #458588
+set $purple #b16286
+set $aqua #689d68
+set $gray #a89984
+set $darkgray #1d2021
+set $white #ffffff
+
+##class border backgr. text indicator child_border
+client.focused #4c7899 #285577 #ffffff #2e9ef4 #285577
+client.focused_inactive #81c2d6 #5f676a #ffffff #484e50 #0b6e48
+client.unfocused #c9cabb #222222 #888888 #292d2e #222222
+client.urgent #2f343a #900000 #ffffff #199475 #900000
+client.placeholder #a2b4ba #0c0c0c #ffffff #1793d0 #0c0c0c
+client.background #82abba
+
+# popups
+for_window [window_role="pop-up"] floating enable
+for_window [window_role="task_dialog"] floating enable
+
+# float programs(find the programs'names in "/usr/share/applictions")
+for_window [class="Gpicview"] floating enable
+for_window [class="mpv"] floating enable
+for_window [class="Gimp"] floating enable
+for_window [class="Xarchiver"] floating enable
+for_window [class="Genymotion"] floating enable
+for_window [class="Vlc"] floating enable
+for_window [class="VirtualBox"] floating enable
+for_window [class="Thunar"] floating enable
+for_window [class="Catfish"] floating enable
+
+# font
+font pango:Sarasa Mono SC Nerd 10
+
+## status bar
+# bar {
+#     # status_command i3status -c ~/.config/i3/i3status.conf
+#     status_command i3blocks -c ~/.config/i3/i3blocks.conf
+#     position bottom
+#     mode hide
+#     workspace_buttons yes
+#     tray_padding 0
+#     # separator_symbol "|"
+#     colors {
+#         background #285477
+#         statusline #dedede
+#         separator #2d2d2d
+#         focused_workspace #636e88 #285de7 #dedfdg
+#         active_workspace #556677 #234567 #56ef67
+#         inactive_workspace #636d72 #2d2d2d #dedede
+#         urgent_workspace #ffffff #900000 #d23d32
+#     }
+#     #height 30
+# }
+
+
+
+#++++++=Workspaces=++++++#
+# putting clients on specific workspaces
+# assign [class="Firefox"] 1
+# assign [class="code"] 3
+
+#------=Workspace Control=------#
+# switch to near workspace
+bindsym $mod+Tab workspace next
+bindsym $m_alt+Tab workspace prev
+# bindsym $mod+Shift+Tab workspace prev
+
+
+
+# Define names for default workspaces for which we configure key bindings later on.
+# We use variables to avoid repeating the names in multiple places.
+set $ws1 1
+set $ws2 2
+set $ws3 3
+set $ws4 4
+set $ws5 5
+set $ws6 6
+set $ws7 7
+set $ws8 8
+set $ws9 9
+set $ws10 10
+
+# switch to workspace
+bindsym $mod+1 workspace number $ws1
+bindsym $mod+2 workspace number $ws2
+bindsym $mod+3 workspace number $ws3
+bindsym $mod+4 workspace number $ws4
+bindsym $mod+5 workspace number $ws5
+bindsym $mod+6 workspace number $ws6
+bindsym $mod+7 workspace number $ws7
+bindsym $mod+8 workspace number $ws8
+bindsym $mod+9 workspace number $ws9
+bindsym $mod+0 workspace number $ws10
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace number $ws1
+bindsym $mod+Shift+2 move container to workspace number $ws2
+bindsym $mod+Shift+3 move container to workspace number $ws3
+bindsym $mod+Shift+4 move container to workspace number $ws4
+bindsym $mod+Shift+5 move container to workspace number $ws5
+bindsym $mod+Shift+6 move container to workspace number $ws6
+bindsym $mod+Shift+7 move container to workspace number $ws7
+bindsym $mod+Shift+8 move container to workspace number $ws8
+bindsym $mod+Shift+9 move container to workspace number $ws9
+bindsym $mod+Shift+0 move container to workspace number $ws10
+
+
+workspace 1 output DP-0
+workspace 2 output DP-0
+workspace 9 output HDMI-0
+workspace 10 output DP-2
+exec --no-startup-id i3-msg 'workspace 1; exec  --no-startup-id sakura'
+
+# change border style
+# bindsym $mod+u border none
+# bindsym $mod+n border normal
+# bindsym $mod+o border 1pixel
+bindsym $mod+b border toggle
+
+
+#------=Focus Control=------#
+# change focus 
+# bindsym $mod+j focus left
+# bindsym $mod+k focus down
+# bindsym $mod+l focus up
+# bindsym $mod+semicolon focus right
+
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# focus the parent container
+bindsym $mod+u focus parent
+# focus the child container
+bindsym $mod+Shift+u focus child
+
+# foucus follows mouse(cursor)
+focus_follows_mouse yes
+
+# change focus between tiling / floating windows
+# bindsym $mod+space focus mode_toggle
+
+
+#------=Windows Control=------#
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+# move window
+# bindsym $mod+Shift+J move left
+# bindsym $mod+Shift+K move down
+# bindsym $mod+Shift+L move up
+# bindsym $mod+Shift+colon move right
+
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# split in horizontal orientation
+bindsym $mod+h split h
+# split in vertical orientation
+bindsym $mod+v split v
+
+# toggle bar
+# bindsym $mod+m bar mode toggle
+
+# toggle tiling / floating
+bindsym $mod+space floating toggle
+bindsym $mod+Shift+space sticky toggle
+
+# toggle fullscreen
+bindsym $mod+f fullscreen toggle
+
+# toggle windows layout
+bindsym $mod+s layout stacking
+bindsym $mod+t layout tabbed
+bindsym $mod+a layout toggle split
+
+# terminate window
+bindsym $mod+Shift+q kill
+bindsym $mod+Escape kill
+
+# hide | show window(minus is "-" and plus is "+".)
+bindsym $mod+minus move scratchpad
+bindsym $mod+plus scratchpad show
+
+
+#------=Resize Window=------#
+bindsym $mod+Shift+r mode "resize"
+
+#resize shortcuts (also you can use the mouse for resizing)
+mode "resize" {
+ bindsym h resize shrink width 10 px or 10 ppt
+ bindsym j resize grow width 10 px or 10 ppt
+ bindsym l resize shrink height 10 px or 10 ppt
+ bindsym k resize grow height 10 px or 10 ppt
+
+ bindsym Left resize shrink width 10 px or 10 ppt
+ bindsym Right resize grow width 10 px or 10 ppt
+ bindsym Up resize shrink height 10 px or 10 ppt
+ bindsym Down resize grow height 10 px or 10 ppt
+
+ bindsym Shift+Left resize shrink width 5 px or 5 ppt
+ bindsym Shift+Right resize grow width 5 px or 5 ppt
+ bindsym Shift+Up resize shrink height 5 px or 5 ppt
+ bindsym Shift+Down resize grow height 5 px or 5 ppt
+
+ bindsym Ctrl+Left resize shrink width 1 px or 1 ppt
+ bindsym Ctrl+Right resize grow width 1 px or 1 ppt
+ bindsym Ctrl+Up resize shrink height 1 px or 1 ppt
+ bindsym Ctrl+Down resize grow height 1 px or 1 ppt
+
+ bindsym Return mode "default"
+ bindsym Escape mode "default"
+}
+
+
+
+#++++++=System Control=++++++#
+
+# volume
+set $refresh_i3status killall -SIGUSR1 i3status
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5% && $refresh_i3status
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5% && $refresh_i3status
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
+bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+
+# bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -c 0 -q set Master 2dB+ unmute
+# bindsym XF86AudioLowerVolume exec --no-startup-id amixer -c 0 -q set Master 2dB- unmute
+# bindsym XF86AudioMute exec --no-startup-id amixer -q set Master toggle
+
+
+# bindsym XF86AudioRaiseVolume exec amixer set Master 5%+
+# bindsym XF86AudioLowerVolume exec amixer set Master 5%-
+# bindsym XF86AudioMute exec amixer set Master toggle
+
+
+# power
+set $mode_system select: lock(L) exit(E) reboot(R) poweroff(O) cancel(Esc)
+bindsym $mod+$m_alt+Escape mode "$mode_system"
+mode "$mode_system" {
+ bindsym l mode "default" exec --no-startup-id betterlockscreen -l blur
+ bindsym e exec --no-startup-id i3-msg exit, mode "default"
+ bindsym r exec --no-startup-id systemctl reboot, mode "default"
+ bindsym o exec --no-startup-id systemctl poweroff, mode "default"
+ bindsym Escape mode "default"
+}
+
+# screen off | sleep | shutdown(time unit: seconds)
+exec --no-startup-id xset dpms 1200 1200
+#exec --no-startup-id xset dpms 300 1357 6789
+
+# xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
+# screen before suspend. Use loginctl lock-session to lock your screen.
+exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+
+
+
+#++++++=Sessions=++++++#
+
+# reload the configuration file
+bindsym $mod+$m_alt+c reload
+
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+$m_alt+r restart
+
+# exit i3 (logs you out of your X session)
+bindsym $mod+$m_alt+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+
+# i3lock
+mode "i3lock: Return to lock/Escape to Cancel" {
+ bindsym Return mode "default" exec --no-startup-id betterlockscreen -l blur
+#  bindsym Return mode "default" exec i3lock -i /usr/shre/wallpapers/FuturePrototype/contents/images/3840x2160.png
+ bindsym Escape mode "default"
+}
+
+bindsym $mod+$m_alt+l mode "i3lock: Return to lock/Escape to Cancel"
+
+
+# wallpaper
+exec --no-startup-id feh --no-fehbg --bg-fill '/usr/share/wallpapers/FuturePrototypeWithLogo/contents/images/3840x2160.png'
+
+
